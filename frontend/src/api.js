@@ -1,4 +1,6 @@
-const BASE = '/api';
+// In dev: Vite proxy rewrites /api -> localhost:8000
+// In prod: frontend served from FastAPI, so '' hits the same origin
+const BASE = import.meta.env.DEV ? '/api' : '';
 
 export async function uploadPDF(file) {
   const form = new FormData();
