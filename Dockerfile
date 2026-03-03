@@ -9,12 +9,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Pre-download the embedding model during build
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+# Install Python dependencies (no sentence-transformers in prod to save RAM)
+COPY requirements.txt requirements-render.txt ./
+RUN pip install --no-cache-dir -r requirements-render.txt
 
 # Build React frontend
 COPY frontend/package.json frontend/package-lock.json ./frontend/
@@ -27,6 +24,9 @@ RUN cd frontend && npm run build
 COPY app/ ./app/
 COPY execution/ ./execution/
 COPY .env.example .gitignore ./
+
+# Use lightweight embeddings (chromadb built-in) to fit in 512MB RAM
+ENV LIGHTWEIGHT_EMBEDDINGS=true
 
 VOLUME /app/chroma_data
 
