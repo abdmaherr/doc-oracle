@@ -1,0 +1,17 @@
+# Core
+chromadb>=0.4.22
+PyMuPDF>=1.23.0
+sentence-transformers>=3.0.0
+httpx>=0.26.0
+
+# API
+fastapi>=0.109.0
+uvicorn>=0.27.0
+python-multipart>=0.0.6
+
+# Config
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0
+
+# Testing
+pytest>=8.0.0

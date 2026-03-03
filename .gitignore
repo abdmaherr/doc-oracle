@@ -1,0 +1,20 @@
+# Environment
+.env
+__pycache__/
+*.pyc
+
+# Data
+chroma_data/
+.tmp/
+
+# IDE
+.vscode/
+.idea/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
